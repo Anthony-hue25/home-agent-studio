@@ -1,0 +1,12 @@
+mcp==1.27.0
+uvicorn==0.53.0
+pydantic==2.13.5
+httpx==0.28.1
+starlette==1.6.0
+sse-starlette==3.4.11
+anyio==4.15.1
+httpx-sse==0.4.3
+python-multipart==0.0.32
+boto3==1.43.97
+botocore==1.43.97
+strands-agents==1.56.0
