@@ -5,7 +5,7 @@ Entered alongside this project's primary-track submission to the **Alexa+ / MCP 
 ## AWS services used, and for what
 
 - **Amazon Bedrock** (Nova Pro, `amazon.nova-pro-v1:0`) -- the actual model behind the Dream planner. Given the current guests, their preferences, and the simulated property's physical constraints, it proposes candidate strategies for resolving the stay. It never gets the final word: every candidate it proposes is independently, deterministically re-verified before it can become a Stay Blueprint (see `docs/ARCHITECTURE.md`).
-- **Strands Agents SDK** (`strands-agents==1.56.0`) -- orchestrates the agent loop that calls Bedrock, including two read-only grounding tools the model can call to discover the simulated property's current capabilities before proposing a strategy.
+- **Strands Agents SDK** (`strands-agents==1.56.0`) -- orchestrates the agent loop that calls Bedrock, including a bounded read-only grounding tool (`discover_stay_strategies`) the model can call to discover the simulated property's current capabilities before proposing a strategy.
 - **boto3 / botocore** -- the AWS SDK layer underneath Strands and the identity/credential resolution used by `LiveStayPlanner`, including its ECS-task-role fallback path (see `test_live_planner_profile_fallback.py`).
 - **AWS ECS (Express Gateway)** -- hosts the live, public deployment. The exact `Dockerfile` in this repository is what's running at the live demo URL.
 

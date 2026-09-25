@@ -5,7 +5,7 @@ Three lanes: **Amazon-run services**, the **open MCP standard**, and **Adaptive 
 **The chain, in one line:** Browser (simulated Alexa+ / multimodal surface) → MCP → Strands → Bedrock → deterministic Dream → Blueprint → simulated Home State Gateway → readback verification.
 
 ```
-[Guest, natural language]
+[Guest, picks from labeled choices]
       |
       v
 [Simulated Alexa+ / multimodal conversational surface]
@@ -21,7 +21,7 @@ Three lanes: **Amazon-run services**, the **open MCP standard**, and **Adaptive 
       |
       +--> dream_stay / get_dream_status --> [LiveStayPlanner]
       |                                           |
-      |                                    strands.Agent + read-only grounding tools
+      |                                    strands.Agent + a bounded read-only grounding tool
       |                                           v
       |                                   [Amazon Bedrock -- Nova Pro]
       |                                           |
