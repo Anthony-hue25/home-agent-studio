@@ -7,7 +7,7 @@ Every check below is real and runnable from this repository. Nothing here is ass
 | File | What it proves |
 |---|---|
 | `test_identity_gate.py` | `is_authorized_runtime_identity` accepts exactly the two pinned identities (the named dev IAM user, the deployed ECS task role) and rejects everything else -- wrong account, wrong/renamed role, root user, malformed input |
-| `test_home_state_gateway.py` | The Home State Gateway's `apply_and_verify` genuinely performs an independent readback and only reports success when that readback confirms it |
+| `test_home_state_gateway.py` | The simulated Home State Gateway's `apply_and_verify` genuinely performs an independent readback and only reports success when that readback confirms it |
 | `test_live_planner_profile_fallback.py` | When no local named AWS CLI profile is available (the normal case for an ECS task, which authenticates via its task role), `LiveStayPlanner` falls back to the default credential chain instead of hard-failing -- and the identity gate still runs, unchanged, against whatever identity that resolves to |
 
 Run any of them directly: `python3 test_identity_gate.py` (etc.) -- each prints PASS/FAIL per assertion and exits non-zero on any failure.

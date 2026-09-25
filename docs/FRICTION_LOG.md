@@ -1,6 +1,6 @@
 # Friction log
 
-Real friction encountered building and deploying this project, in order of severity. All entries are from this project's own AWS CLI / ECS deployment work during the hackathon window.
+Real friction encountered building and deploying this project during the hackathon submission window (September 2026), all from this project's own AWS CLI / ECS Express Gateway deployment work. Every entry below happened exactly as described, in this project, on this deployment -- none is a generic or hypothetical complaint.
 
 ## F1 -- Custom `aws login` authorization codes are invocation-scoped, not reusable
 
@@ -75,3 +75,22 @@ Real friction encountered building and deploying this project, in order of sever
 **Workaround:** Did not pursue this path further; confirmed via `/health` polling that the deployment completed without manual intervention.
 
 **Actionable suggestion to Amazon:** Version-note breaking CLI parameter changes for deployment-lifecycle commands like this one, since a working script from one project phase silently stopped working in a later phase with no changelog pointer in the error itself.
+
+## F5 -- Rolling deployment briefly showed two simultaneous active configurations, with no clear signal whether manual intervention was needed
+
+**Tool / service:** AWS ECS Express Gateway, service rollout status
+
+**Environment:** Same ECS Express Gateway deployment as F2-F4
+
+**Steps taken:** After pushing a new task definition revision, described the service mid-rollout to confirm the new revision was taking over.
+
+**Expected result:** A single active configuration (or a clear "in progress, revision N replacing revision N-1" status) with an obvious signal for when it was safe to consider the rollout complete.
+
+**Actual result:** The describe output showed two `activeConfigurations` entries simultaneously (old and new revision) with nothing in the response indicating whether this was normal mid-rollout behavior or a stuck deployment requiring `continue-service-deployment` (which itself hit the `--hook-id` issue in F4).
+
+**Severity:** Minor (resolved itself)
+
+**Workaround:** Polled `/health` directly at a fixed interval instead of relying on the ECS describe output to judge rollout health. The second configuration disappeared and the rollout reported healthy within roughly 30-45 seconds without any manual step.
+
+**Actionable suggestion to Amazon:** Have `describe-express-gateway-service` (or its rollout-status equivalent) surface an explicit "this is normal, no action needed" versus "this is stuck, action needed" signal, rather than leaving that inference to the caller.
+

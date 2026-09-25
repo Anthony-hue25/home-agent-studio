@@ -2,7 +2,7 @@
 
 ## Which developer tools, APIs and SDKs did you use and for what?
 
-Amazon Bedrock (Nova Pro) for the actual planning inference behind the Dream engine. The Strands Agents SDK (1.56.0) to orchestrate the model/tool loop, including two read-only grounding tools the model calls to discover the real property state before proposing a strategy. boto3/botocore for AWS SDK access and credential resolution, including a fallback from a named local CLI profile to the default credential chain (the normal case for an ECS task authenticating via its task role). The official MCP Python SDK (`mcp` 1.27.0, FastMCP) for the Streamable HTTP MCP server itself. AWS ECS Express Gateway to host the live public deployment, plus the AWS CLI (including its custom `login` subcommand) for authentication and deployment.
+Amazon Bedrock (Nova Pro) for the actual planning inference behind the Dream engine. The Strands Agents SDK (1.56.0) to orchestrate the model/tool loop, including two read-only grounding tools the model calls to discover the current simulated property state before proposing a strategy. boto3/botocore for AWS SDK access and credential resolution, including a fallback from a named local CLI profile to the default credential chain (the normal case for an ECS task authenticating via its task role). The official MCP Python SDK (`mcp` 1.27.0, FastMCP) for the Streamable HTTP MCP server itself. AWS ECS Express Gateway to host the live public deployment, plus the AWS CLI (including its custom `login` subcommand) for authentication and deployment.
 
 ## What worked well? (setup, docs, testing, performance, reliability)
 
